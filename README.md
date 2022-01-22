@@ -6,7 +6,7 @@ Aplikasi sederhana ini dibuat untuk para pengampu Tahfidz SD yang ingin memberi 
 - Koneksi internet
 
 ## Cara Pakai
-Cukup buka file index.html yang ada dengan _web browser_.
+Cukup buka file `index.html` yang ada dengan _web browser_.
 
 ## TODO
 - [ ] Buat proses pengacakan terlihat lebih menarik di mata anak-anak.
