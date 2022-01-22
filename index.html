@@ -14,9 +14,10 @@
       <script src="https://unpkg.com/papaparse@5.3.1/papaparse.min.js" charset="utf-8" defer></script>
       <script charset="utf-8">
         var juzamma;
+        let csvurl = 'https://raw.githubusercontent.com/atmorojo/AyatRandomizer/main/juzamma.csv';
 
   function parsejuzamma() {
-    Papa.parse('juzamma.csv', {
+    Papa.parse(csvurl, {
       download: true,
       complete: function(results) {
         juzamma = results;
