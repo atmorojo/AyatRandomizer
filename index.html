@@ -29,13 +29,12 @@
 
       <!--Custom JS code-->
       <script charset="utf-8">
-        var juzamma;
-
         /*
           This is hacky. The csv file won't load from a 'file://' url so the
           app won't work when the html file is opened from a file manager.
         */
         let csvurl = 'https://raw.githubusercontent.com/atmorojo/AyatRandomizer/main/juzamma.csv';
+        var juzamma;
 
         /*
           Fungsi yang dipanggil kalau variable juzamma kosong. Intinya:
