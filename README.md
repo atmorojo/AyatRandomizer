@@ -8,6 +8,9 @@ Aplikasi sederhana ini dibuat untuk para pengampu Tahfidz SD yang ingin memberi 
 ## Cara Pakai
 Cukup buka file `index.html` yang ada dengan _web browser_.
 
+## Demo
+Demo bisa anda temukan pada [tautan ini](http://atmorojo.gitlab.io/surahrandomizer/).
+
 ## TODO
 - [ ] Buat proses pengacakan terlihat lebih menarik di mata anak-anak.
 - [ ] Pindah format data dari CSV ke JSON untuk menampung data juz dan nomor surat.
