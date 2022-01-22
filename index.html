@@ -47,7 +47,7 @@
             download: true,
             complete: function(results) {
               juzamma = results;
-              update();
+              roll(1000)();
             }
           });
         }
@@ -58,8 +58,18 @@
           Kalau udah ada isinya, panggil fungsi update().
         */
         function randomize() {
-          if (juzamma === undefined) { parsejuzamma(); }
-          else { update(); }
+          if (juzamma === undefined) {
+            parsejuzamma();
+          } else {
+            roll(1000);
+          }
+        }
+
+        function roll(end, durasi = 1) {
+          setTimeout(update(), durasi)
+          if (durasi < end) {
+            roll(end, durasi *2) 
+          }
         }
 
         function update() {
