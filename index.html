@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/tachyons.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amiri&display=swap&subset=arabic" rel="stylesheet">
+    <title>Juz 'Amma Random Ayat Chooser</title>
+  </head>
+  <body>
+    <main class="pa4 black-80 mb4">
+      <script src="https://unpkg.com/papaparse@5.3.1/papaparse.min.js" charset="utf-8" defer></script>
+      <script charset="utf-8">
+        var juzamma;
+
+  function parsejuzamma() {
+    Papa.parse('juzamma.csv', {
+      download: true,
+      complete: function(results) {
+        juzamma = results;
+        update();
+      }
+    });
+  }
+
+  function randomize() {
+    if (juzamma === undefined) { parsejuzamma(); }
+    else { update(); }
+  }
+
+  function update() {
+    let randomsurah = Math.floor(Math.random() * (juzamma.data.length - 1));
+    let randomayat =  Math.floor(Math.random() * juzamma.data[randomsurah][1] + 1);
+    document.getElementById("nama-surat").innerHTML = juzamma.data[randomsurah][0];
+    document.getElementById("nomor-ayat").innerHTML = randomayat;
+  }
+      </script>
+      <div class="flex flex-column items-center tc vh-100">
+        <div class="w-100 h-100">
+          <p class="f3 fira9 h-50">Nama Surat:</p>
+          <p class="f1 amiri h-50" id="nama-surat">-</p>
+        </div>
+        <div class="w-100 h-100">
+          <p class="f2 fira9" id="nomor-ayat">-</p>
+        </div>
+        <div class="w-100 h-100">
+          <div 
+            class="f3 link dim br-pill ph5 pv3 mb2 dib white bg-green shadow-5
+            fira9"
+            onclick="randomize();">Randomize!</div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
