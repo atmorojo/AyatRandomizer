@@ -3,56 +3,104 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--
+      Load CSS files. I'm using tachyons.css since I'm quite familiar with it.
+      Custom.css is whatever I need but is not in the tachyons.
+    -->
     <link rel="stylesheet" type="text/css" href="tachyons.min.css">
     <link rel="stylesheet" type="text/css" href="custom.css">
+
+    <!--
+      Load fonts from Google fonts. Here I'm using Fira Sans Condensed for
+      latin texts and Amiri for arabic texts.
+    -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amiri&display=swap&subset=arabic" rel="stylesheet">
+
+    <!--Page title-->
     <title>Juz 'Amma Random Ayat Chooser</title>
   </head>
   <body>
     <main class="pa4 black-80 mb4">
+
+      <!--Loading papaparse.js -->
       <script src="https://unpkg.com/papaparse@5.3.1/papaparse.min.js" charset="utf-8" defer></script>
+
+      <!--Custom JS code-->
       <script charset="utf-8">
         var juzamma;
+
+        /*
+          This is hacky. The csv file won't load from a 'file://' url so the
+          app won't work when the html file is opened from a file manager.
+        */
         let csvurl = 'https://raw.githubusercontent.com/atmorojo/AyatRandomizer/main/juzamma.csv';
 
-  function parsejuzamma() {
-    Papa.parse(csvurl, {
-      download: true,
-      complete: function(results) {
-        juzamma = results;
-        update();
-      }
-    });
-  }
+        /*
+          Fungsi yang dipanggil kalau variable juzamma kosong. Intinya:
+          download file csv yang isinya data nama surat dan jumlah ayatnya.
+          Kalau berhasil, convert hasilnya jadi format json dan simpan dalam
+          variable juzamma. Kemudian jalankan fungsi update().
+        */
+        function parsejuzamma() {
+          Papa.parse(csvurl, {
+            download: true,
+            complete: function(results) {
+              juzamma = results;
+              update();
+            }
+          });
+        }
 
-  function randomize() {
-    if (juzamma === undefined) { parsejuzamma(); }
-    else { update(); }
-  }
+        /*
+          Fungsi yang dipanggil kalau pencet tombol "Randomize!" Logikanya:
+          kalau variable juzamma belum ada isinya, panggil fungsi parsejuzamma.
+          Kalau udah ada isinya, panggil fungsi update().
+        */
+        function randomize() {
+          if (juzamma === undefined) { parsejuzamma(); }
+          else { update(); }
+        }
 
-  function update() {
-    let randomsurah = Math.floor(Math.random() * (juzamma.data.length - 1));
-    let randomayat =  Math.floor(Math.random() * juzamma.data[randomsurah][1] + 1);
-    document.getElementById("nama-surat").innerHTML = juzamma.data[randomsurah][0];
-    document.getElementById("nomor-ayat").innerHTML = randomayat;
-  }
+        function update() {
+          let randomsurah = Math.floor(Math.random() * (juzamma.data.length - 1));
+          let randomayat =  Math.floor(Math.random() * juzamma.data[randomsurah][1] + 1);
+          document.getElementById("nama-surat").innerHTML = juzamma.data[randomsurah][0];
+          document.getElementById("nomor-ayat").innerHTML = randomayat;
+        }
       </script>
+      <!--End of custom JS code-->
+
       <div class="flex flex-column items-center tc vh-100">
+
+
         <div class="w-100 h-100">
           <p class="f3 fira9 h-50">Nama Surat:</p>
           <p class="f1 amiri h-50" id="nama-surat">-</p>
         </div>
+
+
         <div class="w-100 h-100">
           <p class="f2 fira9" id="nomor-ayat">-</p>
         </div>
+
+
         <div class="w-100 h-100">
+
+          <!--
+            Tombolnya ana buat pake <div> instead of <button> because styling 
+            button with tachyons is a pain in the bottom.
+          -->
           <div 
             class="f3 link dim br-pill ph5 pv3 mb2 dib white bg-green shadow-5
-            fira9"
-            onclick="randomize();">Randomize!</div>
-        </div>
-      </div>
-    </main>
+            fira9 shadow-hover"
+            onclick="randomize();">
+            Randomize!
+          </div>
+
+        </div> </div>
+    </main> 
+
   </body>
 </html>
