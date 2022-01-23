@@ -22,7 +22,7 @@
     <title>Juz 'Amma Random Ayat Chooser</title>
   </head>
   <body>
-    <main class="pa4 black-80">
+    <main class="pv5 black-80 vh-100 flex flex-column items-center">
 
       <!--Loading papaparse.js -->
       <script src="https://unpkg.com/papaparse@5.3.1/papaparse.min.js" charset="utf-8" defer></script>
@@ -59,8 +59,10 @@
           Kalau udah ada isinya, panggil fungsi update().
         */
         function randomize() {
-          if (document.getElementById("nama-surat").classList.contains('green')) {
-            document.getElementById("nama-surat").classList.remove('green');
+          if (document.getElementById("background").classList.contains('bg-dark-green')) {
+            document.getElementById("background").classList.remove('bg-dark-green');
+            document.getElementById("background").classList.remove('white');
+            document.getElementById("background").classList.remove('shadow-5');
           }
 
           if (juzamma === undefined) {
@@ -89,37 +91,40 @@
           let randomsurah = Math.floor(Math.random() * (juzamma.data.length - 1));
           let randomayat =  Math.floor(Math.random() * juzamma.data[randomsurah][1] + 1);
           document.getElementById("nama-surat").innerHTML = juzamma.data[randomsurah][0];
-          document.getElementById("nomor-ayat").innerHTML = randomayat;
+          document.getElementById("nomor-ayat").innerHTML = ": " +
+          randomayat.toLocaleString('ar-EG');
         }
 
         function finished() {
-          document.getElementById("nama-surat").classList.add('green');
+          document.getElementById("background").classList.add('bg-dark-green');
+          document.getElementById("background").classList.add('white');
+          document.getElementById("background").classList.add('shadow-5');
         }
       </script>
       <!--End of custom JS code-->
 
-      <div class="flex flex-column items-center tc vh-100">
+      <div class="flex flex-column items-center tc h-100 w-50-ns">
 
 
-        <div class="w-100 h-100">
-          <p class="f3 fira9 h-50">Nama Surat:</p>
-          <p class="f1 amiri h-50" id="nama-surat">-</p>
+        <div>
+          <p class="f3 f1-ns fira9">Nama Surat:</p>
         </div>
 
 
-        <div class="w-100 h-100">
-          <p class="f2 fira9" id="nomor-ayat">-</p>
+        <div id="background" class="pa4 mt4 mb6 br3">
+          <span class="f1 amiri" id="nama-surat">-</span>
+          <span class="f2 amiri" id="nomor-ayat">: -</span>
         </div>
 
 
-        <div class="w-100 h-100">
+        <div>
 
           <!--
             Tombolnya ana buat pake <div> instead of <button> because styling 
             button with tachyons is a pain in the bottom.
           -->
           <div 
-            class="f3 link dim br-pill ph5 pv3 mb2 dib white bg-green shadow-5
+            class="f3 link dim br-pill ph5 pv3 mb2 dib white bg-blue shadow-5
             fira9 shadow-hover"
             onclick="randomize();">
             Randomize!
