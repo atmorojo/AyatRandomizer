@@ -47,29 +47,42 @@
             download: true,
             complete: function(results) {
               juzamma = results;
-              roll(1000)();
+              console.log('CSV parsed!')
+              roll(1000);
             }
           });
         }
 
         /*
-          Fungsi yang dipanggil kalau pencet tombol "Randomize!" Logikanya:
+          Fungsi yang dipanggil kalau pencet tombol "Randomize!". Logikanya:
           kalau variable juzamma belum ada isinya, panggil fungsi parsejuzamma.
           Kalau udah ada isinya, panggil fungsi update().
         */
         function randomize() {
+          if (document.getElementById("nama-surat").classList.contains('green')) {
+            document.getElementById("nama-surat").classList.remove('green');
+          }
+
           if (juzamma === undefined) {
             parsejuzamma();
           } else {
+            console.log('Roll!')
             roll(1000);
           }
         }
 
         function roll(end, durasi = 1) {
-          setTimeout(update(), durasi)
-          if (durasi < end) {
-            roll(end, durasi *2) 
-          }
+          console.log('Roll ' + durasi);
+          setTimeout(() => {
+            update();
+
+            if (durasi < end) {
+              roll(end, durasi * 1.2) 
+            }
+            else {
+              finished();
+            }
+          }, durasi)
         }
 
         function update() {
@@ -77,6 +90,10 @@
           let randomayat =  Math.floor(Math.random() * juzamma.data[randomsurah][1] + 1);
           document.getElementById("nama-surat").innerHTML = juzamma.data[randomsurah][0];
           document.getElementById("nomor-ayat").innerHTML = randomayat;
+        }
+
+        function finished() {
+          document.getElementById("nama-surat").classList.add('green');
         }
       </script>
       <!--End of custom JS code-->
