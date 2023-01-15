@@ -59,9 +59,7 @@
         */
         function randomize() {
           if (document.getElementById("background").classList.contains('bg-dark-green')) {
-            document.getElementById("background").classList.remove('bg-dark-green');
-            document.getElementById("background").classList.remove('white');
-            document.getElementById("background").classList.remove('shadow-5');
+            rm_finish_classes();
           }
 
           if (juzamma === undefined) {
@@ -69,25 +67,24 @@
           }
           
           console.log('Roll!')
-          roll(1000);
-          
+          roll(1000);         
         }
 
-        function roll(end, durasi = 1) {
-          console.log('Roll ' + durasi);
+        function roll(end, jeda_update = 1) {
+          console.log('Roll ' + jeda_update);
           setTimeout(() => {
-            update();
+            update_screen();
 
-            if (durasi < end) {
-              roll(end, durasi * 1.2) 
+            if (jeda_update < end) {
+              roll(end, jeda_update * 1.2) 
             }
             else {
-              finished();
+              add_finish_classes();
             }
-          }, durasi)
+          }, jeda_update)
         }
 
-        function update() {
+        function update_screen() {
           let randomsurah = Math.floor(Math.random() * (juzamma.data.length - 1)); // -1 karena hitungan length dimulai dari 0
           let randomayat =  Math.floor(Math.random() * juzamma.data[randomsurah][1] + 1); // +1 untuk menghindari kemungkinan mendapatkan ayat 0
           document.getElementById("nama-surat").innerHTML = juzamma.data[randomsurah][0];
@@ -95,7 +92,13 @@
           randomayat.toLocaleString('ar-EG');
         }
 
-        function finished() {
+        function add_finish_classes() {
+          document.getElementById("background").classList.add('bg-dark-green');
+          document.getElementById("background").classList.add('white');
+          document.getElementById("background").classList.add('shadow-5');
+        }
+        
+        function rm_finish_classes() {
           document.getElementById("background").classList.add('bg-dark-green');
           document.getElementById("background").classList.add('white');
           document.getElementById("background").classList.add('shadow-5');
