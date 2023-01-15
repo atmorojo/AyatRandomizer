@@ -48,7 +48,6 @@
             complete: function(results) {
               juzamma = results;
               console.log('CSV parsed!')
-              roll(1000);
             }
           });
         }
@@ -67,10 +66,11 @@
 
           if (juzamma === undefined) {
             parsejuzamma();
-          } else {
-            console.log('Roll!')
-            roll(1000);
           }
+          
+          console.log('Roll!')
+          roll(1000);
+          
         }
 
         function roll(end, durasi = 1) {
@@ -88,8 +88,8 @@
         }
 
         function update() {
-          let randomsurah = Math.floor(Math.random() * (juzamma.data.length - 1));
-          let randomayat =  Math.floor(Math.random() * juzamma.data[randomsurah][1] + 1);
+          let randomsurah = Math.floor(Math.random() * (juzamma.data.length - 1)); // -1 karena hitungan length dimulai dari 0
+          let randomayat =  Math.floor(Math.random() * juzamma.data[randomsurah][1] + 1); // +1 untuk menghindari kemungkinan mendapatkan ayat 0
           document.getElementById("nama-surat").innerHTML = juzamma.data[randomsurah][0];
           document.getElementById("nomor-ayat").innerHTML = ": " +
           randomayat.toLocaleString('ar-EG');
